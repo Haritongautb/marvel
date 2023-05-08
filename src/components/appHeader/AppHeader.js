@@ -2,12 +2,13 @@
 import {Link, NavLink} from "react-router-dom";
 import './appHeader.scss';
 
+
 const AppHeader = () => {
     
     const onActiveLink = ({isActive}) => {
         return {color: isActive ? "#9F0012" : "inherit"};
     };
-
+    // end - что все страницы, который содержат url путь "/comics" дудут окрашены в style - color: isActive ? "#9F0012" : "inherit"
     return (
         <header className="app__header">
             <h1 className="app__title">
@@ -18,7 +19,7 @@ const AppHeader = () => {
             <nav className="app__menu">
                 <ul>
                     <li><NavLink 
-                                end 
+                                end
                                 to="/"
                                 style={onActiveLink}>Characters</NavLink></li>
                     /

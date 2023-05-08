@@ -24,7 +24,11 @@ const CharList = (props) =>{
             .then(onCharListLoaded)
     }
 
-    const onCharListLoaded = (newCharList) => {
+    const onCharListLoaded = async (newCharList) => {
+        // Динамическая import всегда ворзвращает Promise 
+        const {secondLogger} = await import("./someFunc");
+        secondLogger();
+
         let ended = false;
         if(newCharList.length < 9){
             ended = true;
@@ -105,6 +109,22 @@ const CharList = (props) =>{
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading  && !newItemLoading ? <Spinner/> : null;
+
+    if(loading) {
+        // Динамический import всегда возвращает promise
+        import("./someFunc")
+        .then(obj => obj.default())
+        .catch();
+
+        // Если мы пишем export default logger, то это бдует выглядеть так 
+        /*  
+            {
+                default: (){
+                    console.log("Hello world!!");
+                }
+            }
+        */
+    }
 
     return (
         <div className="char__list">

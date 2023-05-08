@@ -53,10 +53,6 @@ const CharInfo = ({charId}) => {
 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
-    const comicsIDArr = useMemo(() => {
-        console.log("comicsArr");
-        return comics.map(item => +item.resourceURI.match(/\d{3,5}/));
-    }, []);
 
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
@@ -86,11 +82,10 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
-                        // eslint-disable-next-line
+                        const comicId = item.resourceURI.match(/\d{3,5}/).join("");
                         if (i > 9) return;
                         return (
-
-                            <Link to={`/comics/${comicsIDArr[i]}`} key={comicsIDArr[i]} className="char__comics-item">
+                            <Link to={`/comics/${comicId}`} key={comicId} className="char__comics-item">
                                 {item.name}
                             </Link>
                         )

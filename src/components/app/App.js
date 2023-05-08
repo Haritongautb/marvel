@@ -1,7 +1,8 @@
 
 // На самом деле функция называется BrowserRouter, но мы назовем его Router, второй компонент называется уже Route
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import { MainPage, ComicsPage, Page404, SingleComicPage} from "../pages";
+import { MainPage, ComicsPage, SingleComicPage} from "../pages";
+import Page404 from "../pages/404";
 import AppHeader from "../appHeader/AppHeader";
 
 
@@ -26,7 +27,7 @@ const App = () => {
                 <AppHeader/>
                 <main>
                     <Routes>
-                        <Route path="/" element={<MainPage />} />
+                        <Route exact path="/" element={<MainPage />} />
                         <Route path="/comics" element={<ComicsPage />} />
                         <Route path="/comics/:comicId" element={<SingleComicPage />} />
                         <Route path="*" element={<Page404 />}/>
@@ -35,16 +36,6 @@ const App = () => {
             </div>
         </Router>
     )
-
-    // return (
-    //     <div className="app">
-    //         <AppHeader/>
-    //         <main>
-    //             <AppBanner />
-    //             <ComicsList />
-    //         </main>
-    //     </div>
-    // )
 
 }
 
