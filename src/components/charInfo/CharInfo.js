@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import useMarvelService from '../../services/MarvelService';
@@ -85,7 +85,7 @@ const View = ({char}) => {
                         const comicId = item.resourceURI.match(/\d{3,5}/).join("");
                         if (i > 9) return;
                         return (
-                            <Link to={`/comics/${comicId}`} key={comicId} className="char__comics-item">
+                            <Link to={`/comic/${comicId}`} key={comicId} className="char__comics-item">
                                 {item.name}
                             </Link>
                         )

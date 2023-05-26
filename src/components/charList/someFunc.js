@@ -9,7 +9,7 @@ export function secondLogger() {
 
 
 /* 
-    Это выглядит так
+    Это выглядит так когда мы export default
     default: (){
         console.log("Hello world!!");
     }

@@ -1,3 +1,4 @@
+import {motion} from "framer-motion";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import useMarvelService from '../../services/MarvelService';
@@ -36,19 +37,30 @@ const ComicsList = () => {
         setOffset(offset => offset + 8);
         setComicsEnded(charEnded => ended)
     }
-
     const renderItems = (arr) => {
         const items = arr.map((item, index) => {
-
+            const variants = {
+                hidden: {opacity: 0},
+                visible: {
+                    transition: {
+                        delay: (Math.floor(Math.random() * (1 - 8) + 8)) * 0.4
+                    },
+                    opacity: 1,
+                }
+            }
             return (
-                <li key={index}
-                    className="comics__item">
-                    <Link to={`/comics/${item.id}`}>
+                <motion.li 
+                    key={index}
+                    className="comics__item"
+                    initial="hidden"
+                    animate="visible"
+                    variants={variants}>
+                    <Link to={`/comic/${item.id}`}>
                         <img src={item.thumbnail} alt={item.title} className="comics__item-img"/>
                         <div className="comics__item-name">{item.title}</div>
                         <div className="comics__item-price">{item.price}</div>
                     </Link>
-                </li>
+                </motion.li>
             )
 
         });

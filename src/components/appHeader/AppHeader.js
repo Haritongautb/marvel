@@ -1,3 +1,4 @@
+import {motion} from "framer-motion";
 
 import {Link, NavLink} from "react-router-dom";
 import './appHeader.scss';
@@ -10,7 +11,9 @@ const AppHeader = () => {
     };
     // end - что все страницы, который содержат url путь "/comics" дудут окрашены в style - color: isActive ? "#9F0012" : "inherit"
     return (
-        <header className="app__header">
+        <motion.header 
+            layout
+            className="app__header">
             <h1 className="app__title">
                 <Link to="/">
                     <span>Marvel</span> information portal
@@ -28,7 +31,7 @@ const AppHeader = () => {
                                 style={onActiveLink}>Comics</NavLink></li>
                 </ul>
             </nav>
-        </header>
+        </motion.header>
     )
 }
 export default AppHeader;

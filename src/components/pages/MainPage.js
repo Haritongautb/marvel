@@ -1,7 +1,10 @@
 import {useState} from "react";
+import {motion} from "framer-motion";
+import animateProps from "../../animateProps/animateProps";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import CharSearchForm from "../charSearchForm/charSearchForm";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import decoration from '../../resources/img/vision.png';
 
@@ -15,7 +18,9 @@ const MainPage = () => {
     }
 
     return (
-        <>
+        <motion.div
+            layout
+            {...animateProps}>
             <ErrorBoundary>
                 <RandomChar />
             </ErrorBoundary>
@@ -23,12 +28,17 @@ const MainPage = () => {
                 <ErrorBoundary>
                     <CharList onCharSelected={onCharSelected}/>
                 </ErrorBoundary>
-                <ErrorBoundary >
-                    <CharInfo charId={selectedChar}/>
-                </ErrorBoundary>
+                <div>
+                    <ErrorBoundary >
+                        <CharInfo charId={selectedChar}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <CharSearchForm />
+                    </ErrorBoundary>
+                </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
-        </>
+        </motion.div>
     )
 }
 

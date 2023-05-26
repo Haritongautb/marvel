@@ -1,3 +1,4 @@
+import {motion} from "framer-motion";
 import {useState, useEffect, useRef} from 'react';
 import PropTypes from "prop-types";
 import Spinner from '../spinner/Spinner';
@@ -6,6 +7,7 @@ import useMarvelService from '../../services/MarvelService';
 import './charList.scss';
 
 const CharList = (props) =>{
+
     const [charList, setCharList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
@@ -25,7 +27,7 @@ const CharList = (props) =>{
     }
 
     const onCharListLoaded = async (newCharList) => {
-        // Динамическая import всегда ворзвращает Promise 
+        // Динамический import всегда возвращает Promise 
         const {secondLogger} = await import("./someFunc");
         secondLogger();
 
@@ -68,14 +70,27 @@ const CharList = (props) =>{
     // Этот метод создан для оптимизации, 
     // чтобы не помещать такую конструкцию в метод render
     function renderItems(arr){
-        const items =  arr.map((item, index) => {
+        const items = arr.map((item, index) => {
             let imgStyle = {'objectFit' : 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit' : 'unset'};
             }
-            
+
+            const variants = {
+                hidden: {opacity: 0},
+                visible: {
+                    transition: {
+                        delay: (Math.floor(Math.random() * (1 - 8) + 8)) * 0.4
+                    },
+                    opacity: 1,
+                }
+            }
+
             return (
-                <li 
+                <motion.li 
+                    initial="hidden"
+                    animate="visible"
+                    variants={variants}
                     className="char__item"
                     key={item.id}
                     onClick={() => {
@@ -94,7 +109,7 @@ const CharList = (props) =>{
                         <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                         
-                </li>
+                </motion.li>
             )
         });
         // А эта конструкция вынесена для центровки спиннера/ошибки
